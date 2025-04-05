@@ -1,42 +1,16 @@
-const config = require('./src/config');
+require('events').EventEmitter.defaultMaxListeners = 20;
 
 module.exports = {
   siteMetadata: {
-    title: 'Aditya Sharma',
-    description:
-      'Aditya Sharma is a software engineer who specializes in building (and occasionally designing) exceptional digital experiences.',
-    siteUrl: 'https://AdityaSharma.com', // No trailing slash allowed!
-    image: '/og.png',
-    twitterUsername: '@asharmaa011',
+    title: 'My Portfolio',
+    description: 'Personal Portfolio Site',
+    author: 'Your Name',
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-styled-components`,
     `gatsby-plugin-image`,
-    {
-      resolve: `gatsby-plugin-sharp`,
-      options: {
-        defaults: {
-          formats: [`auto`, `webp`, `jpg`], // Disables AVIF
-        },
-      },
-    },
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-sitemap`,
-    `gatsby-plugin-robots-txt`,
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: 'Aditya Sharma',
-        short_name: 'Aditya Sharma',
-        start_url: '/',
-        background_color: config.colors.darkNavy,
-        theme_color: config.colors.navy,
-        display: 'minimal-ui',
-        icon: 'src/images/logo.png',
-      },
-    },
-    `gatsby-plugin-offline`,
+    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -45,87 +19,36 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'content',
-        path: `${__dirname}/content/`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `posts`,
-        path: `${__dirname}/content/posts`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `projects`,
-        path: `${__dirname}/content/projects`,
-      },
-    },
-    {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
           {
-            resolve: 'gatsby-remark-external-links',
-            options: {
-              target: '_blank',
-              rel: 'nofollow noopener noreferrer',
-            },
-          },
-          {
-            resolve: 'gatsby-remark-images',
+            resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 700,
               linkImagesToOriginal: true,
               quality: 90,
-              tracedSVG: { color: config.colors.green },
-              formats: [`auto`, `webp`, `jpg`], // Disables AVIF for remark images
-            },
-          },
-          {
-            resolve: 'gatsby-remark-code-titles',
-          },
-          {
-            resolve: `gatsby-remark-prismjs`,
-            options: {
-              classPrefix: 'language-',
-              inlineCodeMarker: null,
-              aliases: {},
-              showLineNumbers: false,
-              noInlineHighlight: false,
-              languageExtensions: [
-                {
-                  language: 'superscript',
-                  extend: 'javascript',
-                  definition: {
-                    superscript_types: /(SuperType)/,
-                  },
-                  insertBefore: {
-                    function: {
-                      superscript_keywords: /(superif|superelse)/,
-                    },
-                  },
-                },
-              ],
-              prompt: {
-                user: 'root',
-                host: 'localhost',
-                global: false,
-              },
+              placeholder: 'blurred', // ✅ updated: replaces tracedSVG
             },
           },
         ],
       },
     },
+    `gatsby-plugin-styled-components`,
+    // ✅ temporarily removed gatsby-plugin-robots-txt since you're on Gatsby v3
+    // Add it back later after upgrading to Gatsby v5
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: `gatsby-plugin-manifest`,
       options: {
-        trackingId: 'UA-45666519-2',
+        name: `gatsby-starter-default`,
+        short_name: `starter`,
+        start_url: `/`,
+        background_color: `#ffffff`,
+        theme_color: `#663399`,
+        display: `minimal-ui`,
+        icon: `src/images/favicon.png`, // Ensure this icon file exists
       },
     },
+    `gatsby-plugin-offline`, // Optional: for PWA support
   ],
 };
