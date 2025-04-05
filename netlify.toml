@@ -1,0 +1,6 @@
+[build]
+  command = "yarn build"  # or "gatsby build", "next build", etc.
+  publish = "public"      # replace with your actual output directory
+
+[build.environment]
+  NODE_VERSION = "20"
