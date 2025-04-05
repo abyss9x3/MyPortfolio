@@ -83,6 +83,7 @@ module.exports = {
               linkImagesToOriginal: true,
               quality: 90,
               tracedSVG: { color: config.colors.green },
+              formats: [`auto`, `webp`, `jpg`], // Disables AVIF for remark images
             },
           },
           {
